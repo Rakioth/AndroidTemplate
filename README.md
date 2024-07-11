@@ -10,7 +10,7 @@ Template featuring a layered architecture ready to be used in greenfield project
 
 Designed with **scalability** and **maintainability** in mind.
 
-Following the [Guide to app architecture](https://developer.android.com/topic/architecture).
+Following the [Guide to app architecture](https://developer.android.com/topic/architecture?hl=en).
 
 <br/>
 
