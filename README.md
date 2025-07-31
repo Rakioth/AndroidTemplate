@@ -2,17 +2,11 @@
   <👽> Android Template
 </h1>
 
-<img src="https://github.com/Rakioth/AndroidTemplate/assets/75569411/f76bf601-d3d6-4737-b3bb-c509a4597df1" alt="Android Logo" align="left" width="192"/>
-
-## Project Overview
-
-Template featuring a layered architecture ready to be used in greenfield projects or quick experiments.
-
-Designed with **scalability** and **maintainability** in mind.
-
-Following the [Guide to app architecture](https://developer.android.com/topic/architecture?hl=en).
-
-<br/>
+<p align="center">
+  Layered architecture for greenfield projects or quick experiments.
+  <br />
+  <sub>Scalable, maintainable, and follows the <a href="https://developer.android.com/topic/architecture">Guide to App Architecture</a></sub>
+</p>
 
 ## 📦 Usage
 

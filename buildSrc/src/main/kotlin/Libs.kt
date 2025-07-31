@@ -3,7 +3,7 @@ object Libs {
     const val ANDROIDX_ESPRESSO     = "androidx.test.espresso:espresso-core:${Versions.ANDROIDX_ESPRESSO}"
     const val ANDROIDX_JUNIT        = "androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT}"
     const val COMPOSE_ACTIVITY      = "androidx.activity:activity-compose:${Versions.COMPOSE_ACTIVITY}"
-    const val COMPOSE_COIL          = "io.coil-kt:coil-compose:${Versions.COMPOSE_COIL}"
+    const val COMPOSE_COIL          = "io.coil-kt.coil3:coil-compose:${Versions.COMPOSE_COIL}"
     const val COMPOSE_JUNIT         = "androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE}"
     const val COMPOSE_MANIFEST      = "androidx.compose.ui:ui-test-manifest:${Versions.COMPOSE}"
     const val COMPOSE_MATERIAL      = "androidx.compose.material3:material3:${Versions.COMPOSE_MATERIAL}"

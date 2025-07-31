@@ -2,6 +2,7 @@ object Plugins {
     const val ANDROID_APPLICATION = "com.android.application"
     const val ANDROID_LIBRARY     = "com.android.library"
     const val KOTLIN_ANDROID      = "org.jetbrains.kotlin.android"
+    const val KOTLIN_COMPOSE      = "org.jetbrains.kotlin.plugin.compose"
     const val HILT_GRADLE         = "com.google.dagger.hilt.android"
     const val KSP                 = "com.google.devtools.ksp"
     const val ANDROID_JUNIT       = "library.android-junit"

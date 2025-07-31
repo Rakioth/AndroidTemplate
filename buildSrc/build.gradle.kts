@@ -1,9 +1,9 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 object BuildConfig {
-    const val ANDROID_GRADLE = "8.2.0"
-    const val KOTLIN         = "1.9.0"
-    const val JVM_TARGET     = "17"
+    const val ANDROID_GRADLE = "8.9.1"
+    const val KOTLIN_GRADLE  = "2.1.20"
+          val JVM_TARGET     = JvmTarget.JVM_17
 }
 
 plugins {
@@ -17,12 +17,12 @@ repositories {
 
 dependencies {
     implementation("com.android.tools.build:gradle:${BuildConfig.ANDROID_GRADLE}")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${BuildConfig.KOTLIN}")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${BuildConfig.KOTLIN_GRADLE}")
     implementation("com.squareup:javapoet:1.13.0")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
+kotlin {
+    compilerOptions {
         jvmTarget = BuildConfig.JVM_TARGET
     }
 }

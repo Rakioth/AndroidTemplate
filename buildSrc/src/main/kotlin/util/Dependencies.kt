@@ -26,14 +26,6 @@ internal fun DependencyHandler.androidTestImplementation(dependency: Any) {
     add("androidTestImplementation", dependency)
 }
 
-internal fun DependencyHandler.kapt(dependency: Any) {
-    add("kapt", dependency)
-}
-
-internal fun DependencyHandler.kaptAndroidTest(dependency: Any) {
-    add("kaptAndroidTest", dependency)
-}
-
 internal fun DependencyHandler.ksp(dependency: Any) {
     add("ksp", dependency)
 }

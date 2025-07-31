@@ -13,7 +13,7 @@ internal fun LibraryExtension.configBuildTypes() {
     }
 }
 
-internal fun CommonExtension<*, *, *, *, *>.configAndroid() {
+internal fun CommonExtension<*, *, *, *, *, *>.configAndroid() {
     compileSdk = Apps.COMPILE_SDK
 
     defaultConfig {
@@ -51,10 +51,6 @@ internal fun BaseAppModuleExtension.configApplication() {
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.COMPOSE
     }
 
     packaging {

@@ -16,6 +16,7 @@ class AppPlugin : Plugin<Project> {
             pluginManager.apply {
                 apply(Plugins.ANDROID_APPLICATION)
                 apply(Plugins.KOTLIN_ANDROID)
+                apply(Plugins.KOTLIN_COMPOSE)
                 apply(Plugins.COMPOSE)
                 apply(Plugins.HILT)
                 apply(Plugins.ANDROID_JUNIT)
