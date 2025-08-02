@@ -1,7 +1,7 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 if ($args.Count -lt 2) {
-    Write-Host -Message @"
+    Write-Host @"
 Usage:
   customizer <your.package.name> <YourAppName>
 
@@ -40,7 +40,7 @@ function Write-Error {
         [string]$Message
     )
 
-    Write-Host -Message "   $( $red )❯$( $normal ) $Message"
+    Write-Host "   $( $red )❯$( $normal ) $Message"
 }
 
 function Write-Success {
@@ -50,58 +50,60 @@ function Write-Success {
         [string]$Message
     )
 
-    Write-Host -Message "   $( $green )❯$( $normal ) $Message"
+    Write-Host "   $( $green )❯$( $normal ) $Message"
 }
 
 Push-Location -Path $PSScriptRoot
 
-Write-Host -Message "$( $purple )╭──────────────────────────────────────────────────╮$( $normal )"
-Write-Host -Message "$( $purple )│$( $normal )          $( Get-Emoji -Unicode "1FAE7" ) $( $italic )Android Template Customizer$( $regular )          $( $purple )│$( $normal )"
-Write-Host -Message "$( $purple )╰──────────────────────────────────────────────────╯$( $normal )"
+Write-Host "$( $purple )╭──────────────────────────────────────────────────╮$( $normal )"
+Write-Host "$( $purple )│$( $normal )          $( Get-Emoji -Unicode "1FAE7" ) $( $italic )Android Template Customizer$( $regular )          $( $purple )│$( $normal )"
+Write-Host "$( $purple )╰──────────────────────────────────────────────────╯$( $normal )"
 
-Write-Host -Message "$( Get-Emoji -Unicode "1F4E6" ) $( $violet )Organizing$( $normal ) files under: $( $purple ).\src\main\kotlin\$PACKAGE_NAME_PATH$( $normal )"
+Write-Host "$( Get-Emoji -Unicode "1F4E6" ) $( $violet )Organizing$( $normal ) files under: $( $purple ).\src\main\kotlin\$PACKAGE_NAME_PATH$( $normal )"
 Get-ChildItem -Directory -Recurse | Where-Object { $_.FullName -notmatch 'buildSrc' -and $_.FullName -like '*\src\main' } | ForEach-Object {
     $Target = Join-Path -Path $_.FullName -ChildPath "kotlin\$PACKAGE_NAME_PATH"
 
     try {
         New-Item -ItemType Directory -Path $Target -Force | Out-Null
-        Write-Success -Message "Created directory $Target"
+        $RelativeTarget = Resolve-Path -Relative $Target
+        Write-Success "Created directory $RelativeTarget"
 
         $Src = "$( $_.FullName )\kotlin\android\template"
         if (Test-Path -Path $Src) {
+            $RelativeSrc = Resolve-Path -Relative $Src
             Move-Item -Path "$Src\*" -Destination $Target -Force
-            Write-Success -Message "Moved files from $Src to $Target"
+            Write-Success "Moved files from $RelativeSrc to $RelativeTarget"
             Remove-Item -Path "$( $_.FullName )\kotlin\android" -Recurse -Force
-            Write-Success -Message "Removed old $Src"
+            Write-Success "Removed old $RelativeSrc"
         }
     } catch {
-        Write-Error -Message "Error processing $($_.FullName)"
+        Write-Error "Error processing $($_.FullName)"
     }
 }
 
-Write-Host -Message "$( Get-Emoji -Unicode "1F527" ) $( $violet )Updating$( $normal ) package declarations and imports: $( $purple )$PACKAGE_NAME$( $normal )"
+Write-Host "$( Get-Emoji -Unicode "1F527" ) $( $violet )Updating$( $normal ) package declarations and imports: $( $purple )$PACKAGE_NAME$( $normal )"
 try {
     Get-ChildItem -File -Filter "*.kt" -Recurse | ForEach-Object {
         (Get-Content -Path $_.FullName).Replace("android.template", $PACKAGE_NAME) | Set-Content -Path $_.FullName
     }
-    Write-Success -Message "Updated declarations"
+    Write-Success "Updated declarations"
 } catch {
-    Write-Error -Message "Failed to update declarations"
+    Write-Error "Failed to update declarations"
 }
 
-Write-Host -Message "$( Get-Emoji -Unicode "1F4DD" ) $( $violet )Renaming$( $normal ) application to: $( $purple )$APP_NAME$( $normal )"
+Write-Host "$( Get-Emoji -Unicode "1F4DD" ) $( $violet )Renaming$( $normal ) application to: $( $purple )$APP_NAME$( $normal )"
 try {
     Get-ChildItem -File -Include "settings.gradle.kts", "strings.xml" -Recurse | ForEach-Object {
         (Get-Content -Path $_.FullName).Replace("Android Template", $APP_NAME) | Set-Content -Path $_.FullName
     }
-    Write-Success -Message "Replaced app name in XML and Gradle files"
+    Write-Success "Replaced app name in XML and Gradle files"
 
     Get-ChildItem -File -Include "*.kt", "*.xml" -Recurse | ForEach-Object {
         (Get-Content -Path $_.FullName).Replace("AndroidTemplate", $APP_NAME_NO_SPACE) | Set-Content -Path $_.FullName
     }
-    Write-Success -Message "Replaced 'AndroidTemplate' with '$APP_NAME_NO_SPACE'"
+    Write-Success "Replaced 'AndroidTemplate' with '$APP_NAME_NO_SPACE'"
 } catch {
-    Write-Error -Message "Failed to rename strings"
+    Write-Error "Failed to rename strings"
 }
 
 try {
@@ -109,45 +111,45 @@ try {
     if ($AppFile) {
         $NewAppFile = $AppFile.FullName.Replace("AndroidTemplateApplication.kt", "${APP_NAME_NO_SPACE}Application.kt")
         Rename-Item -Path $AppFile.FullName -NewName $NewAppFile
-        Write-Success -Message "Renamed main application file to $( Split-Path -Path $NewAppFile -Leaf )"
+        Write-Success "Renamed main application file to $( Split-Path -Path $NewAppFile -Leaf )"
     } else {
-        Write-Error -Message "Main application file not found"
+        Write-Error "Main application file not found"
     }
 } catch {
-    Write-Error -Message "Error renaming application file"
+    Write-Error "Error renaming application file"
 }
 
-Write-Host -Message "$( Get-Emoji -Unicode "1F5D1" )$( Get-Emoji -Unicode "FE0F" ) $( $violet )Cleaning$( $normal ) up template files"
+Write-Host "$( Get-Emoji -Unicode "1F5D1" )$( Get-Emoji -Unicode "FE0F" ) $( $violet )Cleaning$( $normal ) up template files"
 try {
     Remove-Item -Path "README.md" -Force
-    Write-Success -Message "Removed README"
+    Write-Success "Removed README"
 } catch {
-    Write-Error -Message "Failed to remove README"
+    Write-Error "Failed to remove README"
 }
 
 try {
     Remove-Item -Path "customizer.sh", "customizer.ps1" -Force
-    Write-Success -Message "Removed customizer script"
+    Write-Success "Removed customizer script"
 } catch {
-    Write-Error -Message "Failed to remove customizer script"
+    Write-Error "Failed to remove customizer script"
 }
 
 try {
     Remove-Item -Path ".git" -Recurse -Force
-    Write-Success -Message "Removed .git directory"
+    Write-Success "Removed .git directory"
 } catch {
-    Write-Error -Message "Failed to remove .git directory"
+    Write-Error "Failed to remove .git directory"
 }
 
 try {
     Get-ChildItem -File -Include "*.gitkeep" -Recurse | Remove-Item -Force
-    Write-Success -Message "Removed .gitkeep files"
+    Write-Success "Removed .gitkeep files"
 } catch {
-    Write-Error -Message "Failed to remove .gitkeep files"
+    Write-Error "Failed to remove .gitkeep files"
 }
 
 Pop-Location
 
 Write-Host
-Write-Host -Message "$( Get-Emoji -Unicode "1F389" ) Customization complete!"
+Write-Host "$( Get-Emoji -Unicode "1F389" ) Customization complete!"
 Write-Host
