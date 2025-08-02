@@ -107,7 +107,7 @@ try {
 try {
     $AppFile = Get-ChildItem -File -Recurse -Filter "AndroidTemplateApplication.kt" | Select-Object -First 1
     if ($AppFile) {
-        $NewAppFile = $AppFile.FullName.Replace("AndroidTemplateApplication.kt", "${NOSPACE_APPNAME}Application.kt")
+        $NewAppFile = $AppFile.FullName.Replace("AndroidTemplateApplication.kt", "${APP_NAME_NO_SPACE}Application.kt")
         Rename-Item -Path $AppFile.FullName -NewName $NewAppFile
         Write-Success -Message "Renamed main application file to $( Split-Path -Path $NewAppFile -Leaf )"
     } else {
