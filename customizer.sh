@@ -114,19 +114,19 @@ else
 fi
 
 if rm -f customizer.sh customizer.ps1; then
-	_success "Removing customizer script"
+	_success "Removed customizer script"
 else
 	_error "Failed to remove customizer script"
 fi
 
 if rm -rf .git; then
-	_success "Removing .git directory"
+	_success "Removed .git directory"
 else
 	_error "Failed to remove .git directory"
 fi
 
 if find . -name "*.gitkeep" -type f -delete; then
-	_success "Removing .gitkeep files"
+	_success "Removed .gitkeep files"
 else
 	_error "Failed to remove .gitkeep files"
 fi
