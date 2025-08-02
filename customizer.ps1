@@ -55,9 +55,9 @@ function Write-Success {
 
 Push-Location -Path $PSScriptRoot
 
-Write-Host "$( $purple )$( Get-Emoji -Unicode "256D" )──────────────────────────────────────────────────$( Get-Emoji -Unicode "256E" )$( $normal )"
+Write-Host "$( $purple )$( Get-Emoji -Unicode "256D" )$( (Get-Emoji -Unicode "2500") * 50 )$( Get-Emoji -Unicode "256E" )$( $normal )"
 Write-Host "$( $purple )$( Get-Emoji -Unicode "2502" )$( $normal )          $( Get-Emoji -Unicode "1FAE7" ) $( $italic )Android Template Customizer$( $regular )          $( $purple )$( Get-Emoji -Unicode "2502" )$( $normal )"
-Write-Host "$( $purple )$( Get-Emoji -Unicode "2570" )──────────────────────────────────────────────────$( Get-Emoji -Unicode "256F" )$( $normal )"
+Write-Host "$( $purple )$( Get-Emoji -Unicode "2570" )$( (Get-Emoji -Unicode "2500") * 50 )$( Get-Emoji -Unicode "256F" )$( $normal )"
 
 Write-Host "$( Get-Emoji -Unicode "1F4E6" ) $( $violet )Organizing$( $normal ) files under: $( $purple ).\src\main\kotlin\$PACKAGE_NAME_PATH$( $normal )"
 Get-ChildItem -Directory -Recurse | Where-Object { $_.FullName -notmatch 'buildSrc' -and $_.FullName -like '*\src\main' } | ForEach-Object {
